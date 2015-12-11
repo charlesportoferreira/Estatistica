@@ -1,0 +1,55 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package estattistico;
+
+/**
+ *
+ * @author debora
+ */
+public class Estatistica {
+
+    public double[] dados;
+
+   
+    public Estatistica(double[] dados) {
+        this.dados = dados;
+    }
+
+    public Estatistica(int tamanho) {
+        this.dados = new double[tamanho];
+    }
+
+    public Estatistica() {
+        this.dados = new double[10];
+    }
+
+    public double getDesvioPadrao() {
+        return Math.sqrt(getVariancia());
+    }
+
+    public double getVariancia() {
+        double p1 = 1 / (double) dados.length;
+        return p1 * getSomatorio();
+    }
+
+    public double getMedia() {
+        double total = 0;
+        for (double dado : dados) {
+            total += dado;
+        }
+        return total / dados.length;
+    }
+
+    public double getSomatorio() {
+        double media = getMedia();
+        double somatorio = 0;
+        for (double dado : dados) {
+            somatorio += Math.pow(dado - media, 2);
+        }
+        return somatorio;
+    }
+
+}
