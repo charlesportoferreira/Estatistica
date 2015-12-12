@@ -5,7 +5,7 @@
  */
 package Inicio;
 
-import estattistico.Estatistica;
+import estatistico.Estatistica;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -14,21 +14,16 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import util.Util;
 
-/**
- *
- * @author debora
- */
 public class Start {
 
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        String regex = ".*\\.[0-9]{3}Z$";
-        Estatistica e = new Estatistica();
+        String expressaoRegular = ".*\\.[0-9]{3}Z$";
         Util util = new Util();
         String diretorioAtual = System.getProperty("user.dir");
-        List<String> arquivos = util.fileTreePrinter(new File(diretorioAtual), 0, regex);
+        List<String> arquivos = util.fileTreePrinter(new File(diretorioAtual), 0, expressaoRegular);
         int numRepeticoes = arquivos.size();
 
         List<String[]> dados = new ArrayList<>();
@@ -46,28 +41,22 @@ public class Start {
             atributos[i] = Double.parseDouble(dados.get(i)[8]);
         }
 
-        Estatistica eAcertos = new Estatistica(acertos);
-        Estatistica eMicro = new Estatistica(micro);
-        Estatistica eMacro = new Estatistica(macro);
-        Estatistica eAtributos = new Estatistica(atributos);
-
         System.out.println("\nAcertos");
-        System.out.println("Media: " + eAcertos.getMedia());
-        System.out.println("Desvio: " + eAcertos.getDesvioPadrao());
+        imprimeResultado(new Estatistica(acertos));
 
         System.out.println("\nMicro");
-        System.out.println("Media: " + eMicro.getMedia());
-        System.out.println("Desvio: " + eMicro.getDesvioPadrao());
+        imprimeResultado(new Estatistica(micro));
 
         System.out.println("\nMacro");
-        System.out.println("Media: " + eMacro.getMedia());
-        System.out.println("Desvio: " + eMacro.getDesvioPadrao());
+        imprimeResultado(new Estatistica(macro));
 
         System.out.println("\nAtributos");
-        System.out.println(eAtributos.getMedia());
-        System.out.println("Desvio: " + eAtributos.getDesvioPadrao());
+        imprimeResultado(new Estatistica(atributos));
+    }
 
-       // simulacao(e);
+    public static void imprimeResultado(Estatistica e) {
+        System.out.println("Media: " + e.getMedia());
+        System.out.println("Desvio: " + e.getDesvioPadrao());
     }
 
     public static void getDadosArquivoCSV(List<String> arquivos, List<String[]> dados, Util util) {
