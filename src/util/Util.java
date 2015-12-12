@@ -56,7 +56,7 @@ public class Util {
         String[] dados = new String[10];
         try (FileReader fr = new FileReader(filePath); BufferedReader br = new BufferedReader(fr)) {
             while (br.ready()) {
-                p.processaLinha(br);
+                p.processaArquivo(br);
             }
             br.close();
             fr.close();

@@ -39,6 +39,10 @@ public class Start {
         }
 
     }
+    
+    public static void estatistica()throws NumberFormatException{
+        
+    }
 
     public static void estatisticaTec1() throws NumberFormatException {
         String expressaoRegular = ".*BRST [0-9]{4}";

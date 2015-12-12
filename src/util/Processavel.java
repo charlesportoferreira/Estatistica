@@ -13,5 +13,5 @@ import java.io.BufferedReader;
  */
 public interface Processavel {
 
-   void processaLinha(BufferedReader br);
+   void processaArquivo(BufferedReader br);
 }

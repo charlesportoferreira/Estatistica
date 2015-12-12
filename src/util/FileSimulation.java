@@ -14,21 +14,22 @@ import java.io.BufferedReader;
 public class FileSimulation implements Processavel {
 
     @Override
-    public void processaLinha(BufferedReader br) {
+    public void processaArquivo(BufferedReader br) {
         String linhaLida = "";
         String[] dados = new String[10];
         try {
-            linhaLida = br.readLine();
-            if (linhaLida.contains("Geracao: 499")) {
+            while (br.ready()) {
                 linhaLida = br.readLine();
-                linhaLida = linhaLida.replaceAll("[a-zA-Z:]", "");
-                dados = linhaLida.split("-");
-
+                if (linhaLida.contains("Geracao: 499")) {
+                    linhaLida = br.readLine();
+                    linhaLida = linhaLida.replaceAll("[a-zA-Z:]", "");
+                    dados = linhaLida.split("-");
+                    break;
+                }
             }
-
         } catch (Exception e) {
         }
-       
+
     }
 
 }
