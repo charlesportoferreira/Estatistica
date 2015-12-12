@@ -19,13 +19,32 @@ public class Util {
 
     public List<String> filePaths = new ArrayList<>();
 
-    public String[] leDados(String filePath) throws FileNotFoundException, IOException {
+    public String[] leDadosTec2(String filePath) throws FileNotFoundException, IOException {
         String[] dados = new String[9];
         int i = 0;
         try (FileReader fr = new FileReader(filePath); BufferedReader br = new BufferedReader(fr)) {
             while (br.ready()) {
                 dados[i] = br.readLine().split(":")[1];
                 i++;
+            }
+            br.close();
+            fr.close();
+        }
+        return dados;
+    }
+
+    public String[] leDadosTec1(String filePath) throws FileNotFoundException, IOException {
+        String[] dados = new String[10];
+        String linhaLida;
+        try (FileReader fr = new FileReader(filePath); BufferedReader br = new BufferedReader(fr)) {
+            while (br.ready()) {
+                linhaLida = br.readLine();
+                if (linhaLida.contains("Geracao: 499")) {
+                    linhaLida = br.readLine();
+                    linhaLida = linhaLida.replaceAll("[a-zA-Z:]", "");
+                    dados = linhaLida.split("-");
+                    break;
+                }
             }
             br.close();
             fr.close();

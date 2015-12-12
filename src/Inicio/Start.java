@@ -20,6 +20,62 @@ public class Start {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+
+        //melhorar esses codigos. Evitar repeticao de codigo
+        if (args.length > 0) {
+            switch (args[0]) {
+                case "1":
+                    estatisticaTec1();
+                    break;
+                case "2":
+                    estatisticaTec2();
+                    break;
+                default:
+                    System.out.println("Valor de parametro passado incorretamente: 1 ou 2");
+                    break;
+            }
+        } else {
+            System.out.println("passar valores como parametro: 1 ou 2");
+        }
+
+    }
+
+    public static void estatisticaTec1() throws NumberFormatException {
+        String expressaoRegular = ".*BRST [0-9]{4}";
+        Util util = new Util();
+        String diretorioAtual = System.getProperty("user.dir");
+        List<String> arquivos = util.fileTreePrinter(new File(diretorioAtual), 0, expressaoRegular);
+        int numRepeticoes = arquivos.size();
+
+        List<String[]> dados = new ArrayList<>();
+        getDadosArquivoCSVTec1(arquivos, dados, util);
+
+        double[] acertos = new double[numRepeticoes];
+        double[] micro = new double[numRepeticoes];
+        double[] macro = new double[numRepeticoes];
+        double[] atributos = new double[numRepeticoes];
+
+        for (int i = 0; i < dados.size(); i++) {
+            acertos[i] = Double.parseDouble(dados.get(i)[0]);
+            micro[i] = Double.parseDouble(dados.get(i)[1]);
+            macro[i] = Double.parseDouble(dados.get(i)[2]);
+            atributos[i] = Double.parseDouble(dados.get(i)[4]);
+        }
+
+        System.out.println("\nAcertos");
+        imprimeResultado(new Estatistica(acertos));
+
+        System.out.println("\nMicro");
+        imprimeResultado(new Estatistica(micro));
+
+        System.out.println("\nMacro");
+        imprimeResultado(new Estatistica(macro));
+
+        System.out.println("\nAtributos");
+        imprimeResultado(new Estatistica(atributos));
+    }
+
+    public static void estatisticaTec2() throws NumberFormatException {
         String expressaoRegular = ".*\\.[0-9]{3}Z$";
         Util util = new Util();
         String diretorioAtual = System.getProperty("user.dir");
@@ -27,7 +83,7 @@ public class Start {
         int numRepeticoes = arquivos.size();
 
         List<String[]> dados = new ArrayList<>();
-        getDadosArquivoCSV(arquivos, dados, util);
+        getDadosArquivoCSVTec2(arquivos, dados, util);
 
         double[] acertos = new double[numRepeticoes];
         double[] micro = new double[numRepeticoes];
@@ -59,10 +115,20 @@ public class Start {
         System.out.println("Desvio: " + e.getDesvioPadrao());
     }
 
-    public static void getDadosArquivoCSV(List<String> arquivos, List<String[]> dados, Util util) {
+    public static void getDadosArquivoCSVTec2(List<String> arquivos, List<String[]> dados, Util util) {
         try {
             for (String arquivo : arquivos) {
-                dados.add(util.leDados(arquivo));
+                dados.add(util.leDadosTec2(arquivo));
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(Start.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public static void getDadosArquivoCSVTec1(List<String> arquivos, List<String[]> dados, Util util) {
+        try {
+            for (String arquivo : arquivos) {
+                dados.add(util.leDadosTec1(arquivo));
             }
         } catch (IOException ex) {
             Logger.getLogger(Start.class.getName()).log(Level.SEVERE, null, ex);
