@@ -52,6 +52,17 @@ public class Util {
         return dados;
     }
 
+    public void leDados(String filePath, Processavel p) throws FileNotFoundException, IOException {
+        String[] dados = new String[10];
+        try (FileReader fr = new FileReader(filePath); BufferedReader br = new BufferedReader(fr)) {
+            while (br.ready()) {
+                p.processaLinha(br);
+            }
+            br.close();
+            fr.close();
+        }
+    }
+
     private void imprimeArquivo(String fileName, String texto) throws IOException {
         try (FileWriter fw = new FileWriter(fileName, true); BufferedWriter bw = new BufferedWriter(fw)) {
             bw.write(texto);

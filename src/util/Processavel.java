@@ -5,11 +5,13 @@
  */
 package util;
 
+import java.io.BufferedReader;
+
 /**
  *
  * @author charles
  */
 public interface Processavel {
 
-    String procassaLinha(String linhaLinha);
+   void processaLinha(BufferedReader br);
 }
