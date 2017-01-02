@@ -1,15 +1,10 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package estatistico;
 
-/**
- *
- * @author debora
- */
+
+
+
 public class Estatistica {
+
+
 
     public double[] dados;
 
@@ -50,6 +45,15 @@ public class Estatistica {
             somatorio += Math.pow(dado - media, 2);
         }
         return somatorio;
+    }
+
+
+    public static void main(String args[]){
+        Estatistica e = new Estatistica(args.length);
+        for(int i =0; i < e.dados.length; i++){
+            e.dados[i] = Double.parseDouble(args[i]);
+        }
+        System.out.println(e.getDesvioPadrao());
     }
 
 }
